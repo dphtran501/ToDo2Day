@@ -1,8 +1,13 @@
 package edu.orangecoastcollege.cs273.dtran258.todo2day;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jeannie on 9/28/2017.
@@ -46,4 +51,41 @@ class DBHelper extends SQLiteOpenHelper
         // 2) Build (create) the new one
         onCreate(db);
     }
+
+    public void addTask(Task newTask)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        // Specify values (fields) to insert into database
+        // Everything except primary key _id (auto assigned)
+        ContentValues values = new ContentValues();
+        values.put(FIELD_DESCRIPTION, newTask.getDescription());
+        values.put(FIELD_DONE, newTask.isDone() ? 1 : 0);
+        db.insert(DATABASE_TABLE, null, values);
+        db.close();
+    }
+
+    public List<Task> getAllTasks()
+    {
+        List<Task> allTasksList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        // To retrieve data from database, use a Cursor
+        // Cursor stores results of a query
+        Cursor cursor = db.query(DATABASE_TABLE,
+                new String[] {KEY_FIELD_ID, FIELD_DESCRIPTION, FIELD_DONE},
+                null, null, null, null, null);
+
+        if (cursor.moveToFirst())
+        {
+            // Guaranteed at least one result from query
+            do
+            {
+                Task task = new Task(cursor.getInt(0), cursor.getString(1), cursor.getInt(2) == 1);
+                allTasksList.add(task);
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return allTasksList;
+    }
+
 }
