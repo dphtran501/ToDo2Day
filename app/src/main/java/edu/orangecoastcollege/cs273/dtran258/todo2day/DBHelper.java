@@ -88,4 +88,41 @@ class DBHelper extends SQLiteOpenHelper
         return allTasksList;
     }
 
+    public void deleteTask(Task taskToDelete)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(DATABASE_TABLE, KEY_FIELD_ID + "=" + taskToDelete.getId(), null);
+        db.close();
+    }
+
+    public void updateTask(Task taskToEdit)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_DESCRIPTION, taskToEdit.getDescription());
+        values.put(FIELD_DONE, taskToEdit.isDone() ? 1 : 0);
+        db.update(DATABASE_TABLE, values, KEY_FIELD_ID + "=" + taskToEdit.getId(), null);
+        db.close();
+    }
+
+    public Task getSingleTask(int id)
+    {
+        Task singleTask = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(DATABASE_TABLE,
+                new String[] {KEY_FIELD_ID, FIELD_DESCRIPTION, FIELD_DONE},
+                KEY_FIELD_ID + "=" + id, null, null, null, null);
+
+        if (cursor.moveToFirst())
+        {
+            // Guaranteed at least one result from query
+            singleTask = new Task(cursor.getInt(0), cursor.getString(1), cursor.getInt(2) == 1);
+        }
+        cursor.close();
+        db.close();
+
+        return singleTask;
+    }
+
 }
