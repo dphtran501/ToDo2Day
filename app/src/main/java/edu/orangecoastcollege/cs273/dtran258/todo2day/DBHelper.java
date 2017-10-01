@@ -10,26 +10,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jeannie on 9/28/2017.
+ * A model class to manage the SQLite database used to store Task data.
+ *
+ * @author Derek Tran
+ * @version 1.0
+ * @since September 28, 2017
  */
 
 class DBHelper extends SQLiteOpenHelper
 {
     // Create some useful database constants
+    /**
+     * Name of the database.
+     */
     public static final String DATABASE_NAME = "ToDo2Day";
+    /**
+     * Name of the database table.
+     */
     public static final String DATABASE_TABLE = "Tasks";
+    /**
+     * Version of the database.
+     */
     public static final int DATABASE_VERSION = 1;
 
     // Create some useful table constants
+    /**
+     * ID field of the database table. It acts as the primary key.
+     */
     public static final String KEY_FIELD_ID = "_id";
+    /**
+     * Description field of the database table.
+     */
     public static final String FIELD_DESCRIPTION = "description";
+    /**
+     * Completion check field of the database table.
+     */
     public static final String FIELD_DONE = "done";
 
+    /**
+     * Creates a new DBHelper object with the given context.
+     * @param context The activity used to open or create the database.
+     */
     public DBHelper(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Creates the database table for the first time.
+     * @param db The database.
+     */
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -43,6 +73,12 @@ class DBHelper extends SQLiteOpenHelper
         db.execSQL(createTable);
     }
 
+    /**
+     * Drops the existing database table and creates a new one when database is upgraded.
+     * @param db The database.
+     * @param i The old database version.
+     * @param i1 The new database version.
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1)
     {
@@ -52,6 +88,10 @@ class DBHelper extends SQLiteOpenHelper
         onCreate(db);
     }
 
+    /**
+     * Adds a Task to the database.
+     * @param newTask The task to add to the database.
+     */
     public void addTask(Task newTask)
     {
         SQLiteDatabase db = getWritableDatabase();
@@ -64,6 +104,10 @@ class DBHelper extends SQLiteOpenHelper
         db.close();
     }
 
+    /**
+     * Gets a list of all Tasks in the database.
+     * @return List of all Tasks in the database.
+     */
     public List<Task> getAllTasks()
     {
         List<Task> allTasksList = new ArrayList<>();
@@ -88,6 +132,10 @@ class DBHelper extends SQLiteOpenHelper
         return allTasksList;
     }
 
+    /**
+     * Deletes a Task from the database.
+     * @param taskToDelete The Task to delete from the database.
+     */
     public void deleteTask(Task taskToDelete)
     {
         SQLiteDatabase db = getWritableDatabase();
@@ -95,6 +143,10 @@ class DBHelper extends SQLiteOpenHelper
         db.close();
     }
 
+    /**
+     * Updates a Task in the database.
+     * @param taskToEdit The Task to update in the database.
+     */
     public void updateTask(Task taskToEdit)
     {
         SQLiteDatabase db = getWritableDatabase();
@@ -105,6 +157,11 @@ class DBHelper extends SQLiteOpenHelper
         db.close();
     }
 
+    /**
+     * Gets a Task from the database with the specified ID.
+     * @param id The ID of the Task to get from the database.
+     * @return
+     */
     public Task getSingleTask(int id)
     {
         Task singleTask = null;
