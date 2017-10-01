@@ -145,7 +145,7 @@ class DBHelper extends SQLiteOpenHelper
 
     /**
      * Updates a Task in the database.
-     * @param taskToEdit The Task to update in the database.
+     * @param taskToEdit The new Task to replace the old Task with.
      */
     public void updateTask(Task taskToEdit)
     {

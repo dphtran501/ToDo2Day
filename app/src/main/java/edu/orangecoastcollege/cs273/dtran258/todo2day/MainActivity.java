@@ -49,10 +49,22 @@ public class MainActivity extends AppCompatActivity
         for (Task t : mAllTasksList)
             Log.i(TAG, t.toString());
 
-        Log.i(TAG, "After deleting task 4");
+        Log.i(TAG, "After deleting tasks 3 and 4");
+        db.deleteTask(mAllTasksList.get(2));
         db.deleteTask(mAllTasksList.get(3));
         mAllTasksList = db.getAllTasks();
         for(Task t : mAllTasksList)
             Log.i(TAG, t.toString());
+
+        Log.i(TAG, "After updating task 1");
+        mAllTasksList.get(0).setDescription("Study for CS 273 Final");
+        mAllTasksList.get(0).setDone(true);
+        db.updateTask(mAllTasksList.get(0));
+        mAllTasksList = db.getAllTasks();
+        for(Task t : mAllTasksList)
+            Log.i(TAG, t.toString());
+
+        Log.i(TAG, "Showing task 2");
+        Log.i(TAG, db.getSingleTask(mAllTasksList.get(1).getId()).toString());
     }
 }
