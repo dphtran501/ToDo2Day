@@ -7,6 +7,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tests the methods in <code>DBHelper</code> by adding, deleting, updating, and retrieving
+ * <code>Task</code> objects from a database.
+ *
+ * @author Derek Tran
+ * @version 1.0
+ * @since September 28, 2017
+ */
 public class MainActivity extends AppCompatActivity
 {
 
@@ -15,6 +23,13 @@ public class MainActivity extends AppCompatActivity
     // stores "MainActivity"
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    /**
+     * Adds, deletes, updates, and retrieves <code>Task</code> objects from a database, and displays
+     * them to the console.
+     * @param savedInstanceState Bundle containing the data it recently supplied in
+     *                           onSaveInstanceState(Bundle) if activity was reinitialized after
+     *                           being previously shut down. Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

@@ -160,7 +160,7 @@ class DBHelper extends SQLiteOpenHelper
     /**
      * Gets a Task from the database with the specified ID.
      * @param id The ID of the Task to get from the database.
-     * @return
+     * @return The Task with the specified ID.
      */
     public Task getSingleTask(int id)
     {
