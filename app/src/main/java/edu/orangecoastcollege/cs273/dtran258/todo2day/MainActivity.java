@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -141,5 +142,15 @@ public class MainActivity extends AppCompatActivity
         mDB.deleteAllTasks();
         mAllTasksList.clear();
         mTaskListAdapter.notifyDataSetChanged();
+    }
+
+    public void changeTaskStatus(View v)
+    {
+        CheckBox selectedCheckBox = (CheckBox) v;
+        Task selectedTask = (Task) selectedCheckBox.getTag();
+        // Update the task
+        selectedTask.setDone(selectedCheckBox.isChecked());
+        // Update the database
+        mDB.updateTask(selectedTask);
     }
 }

@@ -11,5 +11,6 @@
         android:layout_height="wrap_content"
         android:background="@color/yellow"
         android:textSize="20sp"
-        tools:text="Task"/>
+        tools:text="Task"
+        android:onClick="changeTaskStatus"/>
 </RelativeLayout>
