@@ -2,8 +2,11 @@ package edu.orangecoastcollege.cs273.dtran258.todo2day;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,5 +113,24 @@ public class MainActivity extends AppCompatActivity
         // 2) Connect the ListView with the custom list adapter
         mTaskListAdapter = new TaskListAdapter(this, R.layout.task_item, mAllTasksList);
         mTaskListView.setAdapter(mTaskListAdapter);
+    }
+
+    public void addTask(View v)
+    {
+        // Check to see if the description is empty or null
+        String description = mDescriptionEditText.getText().toString();
+        if (TextUtils.isEmpty(description))
+            Toast.makeText(this, "Please enter a description.", Toast.LENGTH_LONG).show();
+        else
+        {
+            // Create Task
+            Task newTask = new Task(description, false);
+            // Add it to the database;
+            mDB.addTask(newTask);
+            // Add it to the list
+            mAllTasksList.add(newTask);
+            // Notify the list adapter that it's been changed
+            mTaskListAdapter.notifyDataSetChanged();
+        }
     }
 }
