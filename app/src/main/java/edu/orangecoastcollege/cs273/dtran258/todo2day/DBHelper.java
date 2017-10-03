@@ -133,6 +133,16 @@ class DBHelper extends SQLiteOpenHelper
     }
 
     /**
+     * Deletes all Tasks from the database.
+     */
+    public void deleteAllTasks()
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(DATABASE_TABLE, null, null);
+        db.close();
+    }
+
+    /**
      * Deletes a Task from the database.
      * @param taskToDelete The Task to delete from the database.
      */

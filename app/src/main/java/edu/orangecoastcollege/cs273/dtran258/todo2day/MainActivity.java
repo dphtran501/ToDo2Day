@@ -131,6 +131,15 @@ public class MainActivity extends AppCompatActivity
             mAllTasksList.add(newTask);
             // Notify the list adapter that it's been changed
             mTaskListAdapter.notifyDataSetChanged();
+            // Clear out the EditText
+            mDescriptionEditText.setText("");
         }
+    }
+
+    public void clearAllTasks(View v)
+    {
+        mDB.deleteAllTasks();
+        mAllTasksList.clear();
+        mTaskListAdapter.notifyDataSetChanged();
     }
 }
