@@ -2,7 +2,8 @@ package edu.orangecoastcollege.cs273.dtran258.todo2day;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,20 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity
 {
-
-    private List<Task> mAllTasksList = new ArrayList<>();
-
+    /*
     // stores "MainActivity"
     public static final String TAG = MainActivity.class.getSimpleName();
+    */
+
+    // Reference to the database:
+    private DBHelper mDB;
+    // References to the widgets needed
+    private EditText mDescriptionEditText;
+    private ListView mTaskListView;
+    // Reference to the list of all tasks
+    private List<Task> mAllTasksList = new ArrayList<>();
+    // Reference to the custom list adapter
+    TaskListAdapter mTaskListAdapter;
 
     /**
      * Adds, deletes, updates, and retrieves <code>Task</code> objects from a database, and displays
@@ -36,6 +46,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mDB = new DBHelper(this);
+        mDescriptionEditText = (EditText) findViewById(R.id.taskEditText);
+        mTaskListView = (ListView) findViewById(R.id.taskListView);
+
+
+        /*
         // Clear the existing database
         deleteDatabase(DBHelper.DATABASE_NAME);
 
@@ -81,5 +97,18 @@ public class MainActivity extends AppCompatActivity
 
         Log.i(TAG, "Showing task 2");
         Log.i(TAG, db.getSingleTask(mAllTasksList.get(1).getId()).toString());
+        */
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        // Database related "stuff"
+        // 1) Populate the list from the database (using DBHelper)
+        mAllTasksList = mDB.getAllTasks();
+        // 2) Connect the ListView with the custom list adapter
+        mTaskListAdapter = new TaskListAdapter(this, R.layout.task_item, mAllTasksList);
+        mTaskListView.setAdapter(mTaskListAdapter);
     }
 }
