@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Updates whether the Task is completed or not both in the database and in the ListView.
+     * Updates whether the Task is completed or not both in the database.
      * @param v The view that called this method.
      */
     public void changeTaskStatus(View v)
