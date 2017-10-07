@@ -22,11 +22,6 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity
 {
-    /*
-    // stores "MainActivity"
-    public static final String TAG = MainActivity.class.getSimpleName();
-    */
-
     // Reference to the database:
     private DBHelper mDB;
     // References to the widgets needed
@@ -54,54 +49,6 @@ public class MainActivity extends AppCompatActivity
         mDescriptionEditText = (EditText) findViewById(R.id.taskEditText);
         mTaskListView = (ListView) findViewById(R.id.taskListView);
 
-
-        /*
-        // Clear the existing database
-        deleteDatabase(DBHelper.DATABASE_NAME);
-
-        // Pre-populate the List with 4 tasks
-        mAllTasksList.add(new Task("Study for CS 273 Midterm", false));
-        mAllTasksList.add(new Task("Sleep", true));
-        mAllTasksList.add(new Task("Eat", true));
-        mAllTasksList.add(new Task("Do CS 273 Assignment", false));
-
-        // Let's instantiate a new DBHelper
-        DBHelper db = new DBHelper(this);
-
-        // Let's loop through the List and add each one to the database:
-        for (Task t : mAllTasksList)
-        {
-            db.addTask(t);
-        }
-
-        // Let's clear out the List, then rebuild it from the database this time:
-        mAllTasksList.clear();
-        // Retrieve all tasks from the database
-        mAllTasksList = db.getAllTasks();
-
-        // Loop through each of the Tasks, print them to Log.i
-        Log.i(TAG, "Showing all tasks:");
-        for (Task t : mAllTasksList)
-            Log.i(TAG, t.toString());
-
-        Log.i(TAG, "After deleting tasks 3 and 4");
-        db.deleteTask(mAllTasksList.get(2));
-        db.deleteTask(mAllTasksList.get(3));
-        mAllTasksList = db.getAllTasks();
-        for(Task t : mAllTasksList)
-            Log.i(TAG, t.toString());
-
-        Log.i(TAG, "After updating task 1");
-        mAllTasksList.get(0).setDescription("Study for CS 273 Final");
-        mAllTasksList.get(0).setDone(true);
-        db.updateTask(mAllTasksList.get(0));
-        mAllTasksList = db.getAllTasks();
-        for(Task t : mAllTasksList)
-            Log.i(TAG, t.toString());
-
-        Log.i(TAG, "Showing task 2");
-        Log.i(TAG, db.getSingleTask(mAllTasksList.get(1).getId()).toString());
-        */
     }
 
     @Override
