@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Tests the methods in <code>DBHelper</code> by adding, deleting, updating, and retrieving
- * <code>Task</code> objects from a database.
+ * Displays a to-do list that the user can mark as complete or incomplete by clicking a check box.
+ * The user can add a new task with their own description and can also delete all tasks in the list.
  *
  * @author Derek Tran
- * @version 1.0
- * @since September 28, 2017
+ * @version 2.0
+ * @since October 3, 2017
  */
 public class MainActivity extends AppCompatActivity
 {
@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity
     TaskListAdapter mTaskListAdapter;
 
     /**
-     * Adds, deletes, updates, and retrieves <code>Task</code> objects from a database, and displays
-     * them to the console.
+     * Initializes <code>MainActivity</code> by inflating its UI.
      * @param savedInstanceState Bundle containing the data it recently supplied in
      *                           onSaveInstanceState(Bundle) if activity was reinitialized after
      *                           being previously shut down. Otherwise it is null.
@@ -51,6 +50,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Populates the ListView with Tasks from the database.
+     */
     @Override
     protected void onResume()
     {
@@ -63,6 +65,10 @@ public class MainActivity extends AppCompatActivity
         mTaskListView.setAdapter(mTaskListAdapter);
     }
 
+    /**
+     * Adds a Task to the database and the ListView.
+     * @param v The view that called this method.
+     */
     public void addTask(View v)
     {
         // Check to see if the description is empty or null
@@ -84,6 +90,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Deletes all Tasks in the database and the ListView.
+     * @param v The view that called this method.
+     */
     public void clearAllTasks(View v)
     {
         mDB.deleteAllTasks();
@@ -91,6 +101,10 @@ public class MainActivity extends AppCompatActivity
         mTaskListAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Updates whether the Task is completed or not both in the database and in the ListView.
+     * @param v The view that called this method.
+     */
     public void changeTaskStatus(View v)
     {
         CheckBox selectedCheckBox = (CheckBox) v;
