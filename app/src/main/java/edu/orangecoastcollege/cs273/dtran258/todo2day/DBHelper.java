@@ -91,8 +91,9 @@ class DBHelper extends SQLiteOpenHelper
     /**
      * Adds a Task to the database.
      * @param newTask The task to add to the database.
+     * @return The row ID of the newly inserted row, or -1 if error occurred.
      */
-    public void addTask(Task newTask)
+    public int addTask(Task newTask)
     {
         SQLiteDatabase db = getWritableDatabase();
         // Specify values (fields) to insert into database
@@ -100,8 +101,10 @@ class DBHelper extends SQLiteOpenHelper
         ContentValues values = new ContentValues();
         values.put(FIELD_DESCRIPTION, newTask.getDescription());
         values.put(FIELD_DONE, newTask.isDone() ? 1 : 0);
-        db.insert(DATABASE_TABLE, null, values);
+        int newID = (int) db.insert(DATABASE_TABLE, null, values);
         db.close();
+
+        return newID;
     }
 
     /**

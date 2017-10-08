@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity
             // Create Task
             Task newTask = new Task(description, false);
             // Add it to the database;
-            mDB.addTask(newTask);
+            int newID = mDB.addTask(newTask);
+            newTask = new Task(newID, description, false);
             // Add it to the list
             mAllTasksList.add(newTask);
             // Notify the list adapter that it's been changed
