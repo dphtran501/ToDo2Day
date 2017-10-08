@@ -77,11 +77,9 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Please enter a description.", Toast.LENGTH_LONG).show();
         else
         {
-            // Create Task
-            Task newTask = new Task(description, false);
-            // Add it to the database;
-            int newID = mDB.addTask(newTask);
-            newTask = new Task(newID, description, false);
+            // Add new Task to the database;
+            int newID = mDB.addTask(new Task(description, false));
+            Task newTask = new Task(newID, description, false);
             // Add it to the list
             mAllTasksList.add(newTask);
             // Notify the list adapter that it's been changed
